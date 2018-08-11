@@ -9,7 +9,7 @@ export const environment = {
     authDomain: "desktop-pdf-uploader.firebaseapp.com",
     databaseURL: "https://desktop-pdf-uploader.firebaseio.com",
     projectId: "desktop-pdf-uploader",
-    storageBucket: "",
+    storageBucket: "desktop-pdf-uploader.appspot.com",
     messagingSenderId: "233784398673"
   }
 };

@@ -2,56 +2,69 @@
   <table class="search">
     <tr>
       <td>NIC</td>
-      <td><input type="text"></td> 
-      
+      <td>
+        <input type="text" name="nic" [(ngModel)]="entree.$nic">
+      </td>
+
     </tr>
 
     <tr>
       <td>First Name</td>
-      <td><input type="text"></td> 
+      <td>
+        <input type="text" name="fname" [(ngModel)]="entree.$fname">
+      </td>
     </tr>
 
     <tr>
       <td>Last Name</td>
-      <td><input type="text"></td> 
+      <td>
+        <input type="text" name="lname" [(ngModel)]="entree.$lname">
+      </td>
     </tr>
 
     <tr>
       <td>Job Category</td>
       <td>
-        <select class='select-option'>
-        <option class='option' *ngFor='let option of options' [value]="option">{{option}}</option>
-    </select>
-  </td> 
+        <select class="select-option" name="select-option" [(ngModel)]="entree.$jobCategory">
+          <option class='option' *ngFor='let option of options' [ngValue]="option">{{option}}</option>
+        </select>
+      </td>
     </tr>
 
     <tr>
       <td>Male/Female</td>
-      <td><input type="radio" name="sex" [value]='Male'>Male
-        <input type="radio" name="sex" [value]='Female'>Female
-      </td> 
+      <td>
+        <input type="radio" name="sex" [value]="'Male'" [(ngModel)]="entree.$gender">Male
+        <input type="radio" name="sex" [value]="'Female'" [(ngModel)]="entree.$gender">Female
+      </td>
     </tr>
 
-    
+
     <tr>
-        <td>Location</td>
-        <td><input type="text"></td> 
-   </tr>
-
-   
-   <tr>
-      <td>Position</td>
-      <td><input type="text"></td> 
-  </tr>
-
-  
-  <tr>
-      <td>  </td>
+      <td>Location</td>
       <td>
-          <button class="btn"><i class="fa fa-search"></i> Search</button>
-          <button class="btn"><i class="fa fa-close"></i> Close</button>
-      </td> 
-  </tr>
+        <input type="text" name="location" [(ngModel)]="entree.$location">
+      </td>
+    </tr>
+
+
+    <tr>
+      <td>Position</td>
+      <td>
+        <input type="text" name="position" [(ngModel)]="entree.$position">
+      </td>
+    </tr>
+
+
+    <tr>
+      <td> </td>
+      <td>
+        <button class="btn" (click)="search()">
+          <i class="fa fa-search"></i> Search</button>
+        <button class="btn">
+          <i class="fa fa-close"></i> Close</button>
+      </td>
+    </tr>
   </table>
 </div>
 

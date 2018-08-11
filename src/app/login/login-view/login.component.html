@@ -2,15 +2,17 @@
   <div class="background"></div>
 </div>
 
-<form id="accesspanel" action="login" method="post">
+<form (ngSubmit)="onSubmit()" #loginForm="ngForm">
   <h1 id="litheader">AECEND</h1>
   <div class="inset">
-    <p>
-      <input type="text" name="username" id="email" placeholder="Username">
-    </p>
-    <p>
-      <input type="password" name="password" id="password" placeholder="Password">
-    </p>
+
+      <input type="text" name="username" [(ngModel)]="loginCredential.$email" placeholder="Username" #username="ngModel" required/>
+      <div [hidden]="username.valid || username.pristine" class="alert alert-danger">Name is required</div>
+    
+  
+      <input type="password" name="password" [(ngModel)]="loginCredential.$password" placeholder="Password" #password="ngModel"  required>
+      <div [hidden]="password.valid || password.pristine" class="alert alert-danger">password is required</div>
+    
     <div style="text-align: center;">
       <div class="checkboxouter">
         <input type="checkbox" name="rememberme" id="remember" value="Remember">
@@ -19,10 +21,6 @@
       <label for="remember">Remember me for 14 days</label>
     </div>
     <input class="loginLoginValue" type="hidden" name="service" value="login" />
-  </div>
-  <p class="p-container">
-    <input type="submit" name="Login" id="go" value="Authorize" routerLink="/admin">
-  </p>
+    <button type="submit" class="btn btn-success" [disabled]="!loginForm.form.valid">Login</button>
+      </div>
 </form>
-
-
