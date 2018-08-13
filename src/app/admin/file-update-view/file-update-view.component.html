@@ -1,0 +1,27 @@
+<form id="accesspanel" action="login" method="post">
+
+  <table class="search">
+    <tr>
+      <td>NIC</td>
+      <td>
+        <input type="text" name="nic" [(ngModel)]="entree.$nic">
+      </td>
+
+    </tr>
+
+    <tr>
+        <td>Resume</td>
+        <td>  <input type="file" (change)="setFile($event)" accept=".doc,.pdf,.docx"  /> </td> 
+    </tr> 
+
+    </table>
+
+    <div class="progress" *ngIf="showProgressBar">
+      <div class="progress-bar progress-bar-striped bg-success"  role="progressbar" [style.width]="(uploadProgress | async) + '%'" [attr.aria-valuenow]="(uploadProgress | async)" aria-valuemin="0" aria-valuemax="100"></div>
+  </div>
+
+    <div class="footer">
+    <button class="btn" (click)="add()"><i class="fa fa-cloud-upload"></i> Upload</button>
+  </div>
+  
+</form>

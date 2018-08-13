@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { AdminComponent } from './admin-view/admin.component';
 import { FileUploadComponent } from './file-upload-view/file-upload.component';
 import { SearchComponent } from './search-view/search.component';
+import {FileUpdateViewComponent} from './file-update-view/file-update-view.component'
 
 import { routing } from './admin-routing';
 
@@ -17,7 +18,8 @@ import { routing } from './admin-routing';
   declarations: [
     AdminComponent,
     FileUploadComponent,
-    SearchComponent
+    SearchComponent,
+    FileUpdateViewComponent
   ]
 })
 export class AdminModule { }

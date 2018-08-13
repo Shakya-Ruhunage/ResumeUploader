@@ -3,7 +3,7 @@ import { Entree } from '../entree.model';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { SearchQueryBuilder } from './searchQueryBuilder.model';
 import { map } from 'rxjs/operators';
-
+import { Resume } from '@app/admin/resume.model';
 
 @Component({
   selector: 'app-search',
@@ -13,6 +13,8 @@ import { map } from 'rxjs/operators';
 export class SearchComponent implements OnInit {
 
   entree: Entree = new Entree();
+  resume : Resume = new Resume();
+  resultList : any;
   options = ['Select an Option','Sales','Human Resources','IT','Law','Other'];
 
   constructor(private _db: AngularFirestore) { }
@@ -32,8 +34,24 @@ export class SearchComponent implements OnInit {
           const data = a.payload.doc.data();
           const id = a.payload.doc.id;
           return data;
-        }))).subscribe((value) => {
+        }))).subscribe((value : any) => {
           console.log('value', value)
+          this.resume.$nic = value[0].nic;
+
+          //getting the link
+          let some = this._db.collection('resumes',
+          ref => searchQueryBuilder.queryBuilder(ref, this.resume))
+          .snapshotChanges().pipe(
+            map(actions => actions.map(a => {
+              const data = a.payload.doc.data();
+              const id = a.payload.doc.id;
+              return data;
+            }))).subscribe((result) => {
+              console.log('result', result);
+              this.resultList = result;
+  
+            });
+
         });
 
    

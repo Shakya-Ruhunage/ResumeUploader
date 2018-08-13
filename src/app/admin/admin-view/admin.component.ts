@@ -9,12 +9,14 @@ export class AdminComponent implements OnInit {
 
   isFileUpload : boolean ;
   isSearch : boolean;
+  isUpdate : boolean;
   panelTypes: Object;
 
   constructor() {
     this.panelTypes = {
       'upload': true,
-      'search': false
+      'search': false,
+      'update': false
     }
    }
 
@@ -24,11 +26,13 @@ export class AdminComponent implements OnInit {
   public showFileUploadPanel(): void {
     this.isFileUpload = true;
     this.isSearch = false;
+    this.isUpdate = false;
   }
 
   public showSearchPanel() : void{
     this.isSearch = true;
     this.isFileUpload = false;
+    this.isUpdate = false;
   }
 
   public showPanel(showKey: string): void {

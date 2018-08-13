@@ -1,0 +1,26 @@
+<div class="background-wrap">
+  <div class="background"></div>
+</div>
+
+<form (ngSubmit)="onSubmit()" #loginForm="ngForm">
+  <h1 id="litheader">AECEND</h1>
+  <div class="inset">
+
+      <input type="text" name="username" [(ngModel)]="loginCredential.$email" placeholder="Username" #username="ngModel" required/>
+      <div [hidden]="username.valid || username.pristine" class="alert alert-danger">Name is required</div>
+    
+  
+      <input type="password" name="password" [(ngModel)]="loginCredential.$password" placeholder="Password" #password="ngModel"  required>
+      <div [hidden]="password.valid || password.pristine" class="alert alert-danger">password is required</div>
+    
+    <div style="text-align: center;">
+      <div class="checkboxouter">
+        <input type="checkbox" name="rememberme" id="remember" value="Remember">
+        <label class="checkbox"></label>
+      </div>
+      <label for="remember">Remember me for 14 days</label>
+    </div>
+    <input class="loginLoginValue" type="hidden" name="service" value="login" />
+    <button type="submit" class="btn btn-success" [disabled]="!loginForm.form.valid">Login</button>
+      </div>
+</form>

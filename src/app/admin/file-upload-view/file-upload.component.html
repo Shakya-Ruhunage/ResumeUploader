@@ -1,59 +1,75 @@
 <form id="accesspanel" action="login" method="post">
 
     <table class="search">
-        <tr>
-          <td>NIC</td>
-          <td><input type="text"></td> 
-          
-        </tr>
-    
-        <tr>
-          <td>First Name</td>
-          <td><input type="text"></td> 
-        </tr>
-    
-        <tr>
-          <td>Last Name</td>
-          <td><input type="text"></td> 
-        </tr>
-    
-        <tr>
-          <td>Job Category</td>
-          <td>
-            <select class='select-option'>
-            <option class='option' *ngFor='let option of options' [value]="option">{{option}}</option>
-        </select>
-      </td> 
-        </tr>
-    
-        <tr>
-          <td>Male/Female</td>
-          <td><input type="radio" name="sex" [value]='Male'>Male
-            <input type="radio" name="sex" [value]='Female'>Female
-          </td> 
-        </tr>
-    
-        
-        <tr>
-            <td>Location</td>
-            <td><input type="text"></td> 
-       </tr>
-    
-       
-       <tr>
-          <td>Position</td>
-          <td><input type="text"></td> 
+      <tr>
+        <td>NIC</td>
+        <td>
+          <input type="text" name="nic" [(ngModel)]="entree.$nic">
+        </td>
+  
+      </tr>
+  
+      <tr>
+        <td>First Name</td>
+        <td>
+          <input type="text" name="fname" [(ngModel)]="entree.$fname">
+        </td>
+      </tr>
+  
+      <tr>
+        <td>Last Name</td>
+        <td>
+          <input type="text" name="lname" [(ngModel)]="entree.$lname">
+        </td>
+      </tr>
+  
+      <tr>
+        <td>Job Category</td>
+        <td>
+          <select class="select-option" name="select-option" [(ngModel)]="entree.$jobCategory">
+            <option class='option' *ngFor='let option of options' [ngValue]="option">{{option}}</option>
+          </select>
+        </td>
+      </tr>
+  
+      <tr>
+        <td>Male/Female</td>
+        <td>
+          <input type="radio" name="sex" [value]="'Male'" [(ngModel)]="entree.$gender">Male
+          <input type="radio" name="sex" [value]="'Female'" [(ngModel)]="entree.$gender">Female
+        </td>
+      </tr>
+  
+  
+      <tr>
+        <td>Location</td>
+        <td>
+          <input type="text" name="location" [(ngModel)]="entree.$location">
+        </td>
+      </tr>
+  
+  
+      <tr>
+        <td>Position</td>
+        <td>
+          <input type="text" name="position" [(ngModel)]="entree.$position">
+        </td>
+
       </tr>
 
       <tr>
           <td>Resume</td>
-          <td>  <button class="btn"><i class="fa fa-folder"></i> Browse</button> </td> 
+          <td>  <input type="file" (change)="setFile($event)" accept=".doc,.pdf,.docx"  /> </td> 
       </tr> 
 
       </table>
 
+      <div class="progress" *ngIf="showProgressBar">
+        <div class="progress-bar progress-bar-striped bg-success"  role="progressbar" [style.width]="(uploadProgress | async) + '%'" [attr.aria-valuenow]="(uploadProgress | async)" aria-valuemin="0" aria-valuemax="100"></div>
+    </div>
+
       <div class="footer">
-      <button class="btn"><i class="fa fa-cloud-upload"></i> Upload</button>
+      <button class="btn" (click)="add()"><i class="fa fa-cloud-upload"></i> Upload</button>
       <button class="btn"><i class="fa fa-close"></i> Close</button>
     </div>
     
