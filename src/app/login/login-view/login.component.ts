@@ -5,6 +5,8 @@ import { Router, RouterLinkActive } from '@angular/router';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { NotificationsService } from 'angular2-notifications';
+
 
 @Component({
   selector: 'app-login',
@@ -16,7 +18,8 @@ export class LoginComponent implements OnInit {
   loginCredential: LoginCredential = new LoginCredential();
   users: Observable<any[]>;
 
-  constructor(private _router: Router, private _db: AngularFirestore) { }
+  constructor(private _router: Router, private _db: AngularFirestore,
+    private _notification: NotificationsService) { }
 
   ngOnInit() {
     this.users = this._db.collection('users').valueChanges();
@@ -50,7 +53,18 @@ export class LoginComponent implements OnInit {
       if (user.length !== 0) {
         this._router.navigate(['admin']);
       } else {
-        alert('user does not exist')
+        let temp = {
+          position: ["top", "left"],
+          animate: "fromTop",
+          clickToClose: true,
+          content: "This is just some content",
+          pauseOnHover: true,
+          showProgressBar: false,
+          timeOut: 1000,
+          title: "This is just a title",
+          type: "success"
+        };
+        this._notification.create('user does not exist', '', 'error', temp);
       }
     }
   }

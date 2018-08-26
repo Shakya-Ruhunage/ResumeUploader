@@ -15,8 +15,8 @@ export class AdminComponent implements OnInit {
   constructor() {
     this.panelTypes = {
       'upload': true,
-      'search': false,
-      'update': false
+      'search': true,
+      'update': true
     }
    }
 
