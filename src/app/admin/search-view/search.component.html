@@ -70,6 +70,8 @@
 
 <div *ngIf="resultList" class="loader">
   <ul>
-    <li *ngFor="let item of resultList"><a href="{{item.link}}">{{item.link}}</a></li>
+    <li *ngFor="let item of resultList">
+      <a href="{{item.link}}">{{item.link}}</a>
+    </li>
   </ul>
 </div>

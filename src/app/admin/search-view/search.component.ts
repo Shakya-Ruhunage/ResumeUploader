@@ -4,6 +4,7 @@ import { AngularFirestore } from 'angularfire2/firestore';
 import { SearchQueryBuilder } from './searchQueryBuilder.model';
 import { map } from 'rxjs/operators';
 import { Resume } from '@app/admin/resume.model';
+import { TitleCasePipe } from '@angular/common';
 
 @Component({
   selector: 'app-search',
@@ -13,20 +14,22 @@ import { Resume } from '@app/admin/resume.model';
 export class SearchComponent implements OnInit {
 
   entree: Entree = new Entree();
-  resume : Resume = new Resume();
-  resultList : any;
-  options = ['Select an Option','Sales','Human Resources','IT','Law','Other'];
+  resume: Resume = new Resume();
+  resultList: any = [];
+  options = ['Select an Option', 'Admin', 'Customer Service', 'Finance', 'HR', 'IT','Legal','Logistics','Part Time','Supply Chain','Teaching','Other'];
 
-  constructor(private _db: AngularFirestore) { }
+  constructor(private _db: AngularFirestore,private titlecasePipe:TitleCasePipe) { }
 
   ngOnInit() {
   }
 
   public search() {
     console.log('jsifjwfiwhgiw', this.entree);
+    this.resultList = [];
 
     let searchQueryBuilder: SearchQueryBuilder = new SearchQueryBuilder();
-
+    
+    //create search operation
     let some = this._db.collection('entries',
       ref => searchQueryBuilder.queryBuilder(ref, this.entree))
       .snapshotChanges().pipe(
@@ -34,27 +37,36 @@ export class SearchComponent implements OnInit {
           const data = a.payload.doc.data();
           const id = a.payload.doc.id;
           return data;
-        }))).subscribe((value : any) => {
+        }))).subscribe((value: any) => {
           console.log('value', value)
-          this.resume.$nic = value[0].nic;
+          value.forEach(element => {
+            console.log(element);
+            if (element.nic) {
+              this.resume.$nic = element.nic;
+              let some = this._db.collection('resumes',
+                ref => searchQueryBuilder.queryBuilder(ref, this.resume))
+                .snapshotChanges().pipe(
+                  map(actions => actions.map(a => {
+                    const data = a.payload.doc.data();
+                    const id = a.payload.doc.id;
+                    return data;
+                  }))).subscribe((result) => {
+                    result.forEach((res: any) => {
+                      let index = this.resultList.findIndex(element => {
+                        return element.link === res.link;
+                      });
 
-          //getting the link
-          let some = this._db.collection('resumes',
-          ref => searchQueryBuilder.queryBuilder(ref, this.resume))
-          .snapshotChanges().pipe(
-            map(actions => actions.map(a => {
-              const data = a.payload.doc.data();
-              const id = a.payload.doc.id;
-              return data;
-            }))).subscribe((result) => {
-              console.log('result', result);
-              this.resultList = result;
-  
-            });
-
+                      if (index === -1) {
+                        this.resultList.push(res);
+                        console.log('result', this.resultList);
+                      }
+                    });
+                  });
+            }
+          });
         });
 
-   
+
 
 
 

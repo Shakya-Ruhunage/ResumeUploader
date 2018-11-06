@@ -6,6 +6,8 @@ export class Entree {
     private gender: string;
     private location: string;
     private position: string;
+    private date : Date;
+    private user : string;
 
 
     /**
@@ -62,7 +64,24 @@ export class Entree {
      */
 	public get $position(): string {
 		return this.position;
-	}
+    }
+
+    /**
+     *Getter $date
+     *@returns {Date}
+     */
+    public get $date():Date{
+        return this.date;
+    }
+
+    
+    /**
+     * Getter $user
+     * @return {string}
+     */
+    public get $user():string{
+        return this.user;
+    }
 
     /**
      * Setter $nic
@@ -118,7 +137,18 @@ export class Entree {
      */
 	public set $position(value: string) {
 		this.position = value;
-	}
+    }
+    
+    /**
+     * setter for date
+     */
+    public set $date(value : Date){
+        this.date = value;
+    }
+
+    public set $user(value:string){
+        this.user = value;
+    }
 
 }
 

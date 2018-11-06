@@ -9,17 +9,23 @@ import {FileUpdateViewComponent} from './file-update-view/file-update-view.compo
 
 import { routing } from './admin-routing';
 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { SimpleNotificationsModule } from 'angular2-notifications';
+
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
-    routing
+    routing,
+    BrowserAnimationsModule,
+    SimpleNotificationsModule.forRoot() 
   ],
   declarations: [
     AdminComponent,
     FileUploadComponent,
     SearchComponent,
     FileUpdateViewComponent
+    
   ]
 })
 export class AdminModule { }

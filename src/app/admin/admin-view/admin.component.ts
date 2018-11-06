@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { User } from '../../login/user.interface';
 
 @Component({
   selector: 'app-admin',
@@ -11,16 +12,18 @@ export class AdminComponent implements OnInit {
   isSearch : boolean;
   isUpdate : boolean;
   panelTypes: Object;
+  user : User;
 
   constructor() {
     this.panelTypes = {
       'upload': true,
-      'search': true,
-      'update': true
+      'search': false,
+      'update': false
     }
    }
 
   ngOnInit() {
+    this.user = JSON.parse(localStorage.getItem('user'));
   }
 
   public showFileUploadPanel(): void {
@@ -42,6 +45,15 @@ export class AdminComponent implements OnInit {
                         this.panelTypes[key] = false; 
       console.log( this.panelTypes[key], ' this.panelTypes[key]');
      }
+  }
+
+  public isActive(panel){
+    if(this.panelTypes[panel]){
+      return "active";
+    }
+    else{
+      return "";
+    }
   }
   
 }

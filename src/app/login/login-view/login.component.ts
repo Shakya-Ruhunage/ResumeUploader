@@ -6,7 +6,7 @@ import { AngularFirestore } from 'angularfire2/firestore';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { NotificationsService } from 'angular2-notifications';
-
+import {ConnectionService} from 'ng-connection-service';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +19,8 @@ export class LoginComponent implements OnInit {
   users: Observable<any[]>;
 
   constructor(private _router: Router, private _db: AngularFirestore,
-    private _notification: NotificationsService) { }
+    private _notification: NotificationsService,
+    private connection : ConnectionService) { }
 
   ngOnInit() {
     this.users = this._db.collection('users').valueChanges();
@@ -33,6 +34,38 @@ export class LoginComponent implements OnInit {
    * Submits the login form
    */
   public onSubmit(): void {
+    // this.connection.monitor().subscribe(isConnected =>{
+    //   if(isConnected){
+    //     let temp = {
+    //       position: ["top", "left"],
+    //       animate: "fromTop",
+    //       clickToClose: true,
+    //       content: "This is just some content",
+    //       pauseOnHover: true,
+    //       showProgressBar: false,
+    //       timeOut: 1000,
+    //       title: "This is just a title",
+    //       type: "success"
+    //     };
+    //     this._notification.create('Connection exists','Success','',temp);
+    //   }
+    //   else{
+    //     let temp = {
+    //       position: ["top", "left"],
+    //       animate: "fromTop",
+    //       clickToClose: true,
+    //       content: "This is just some content",
+    //       pauseOnHover: true,
+    //       showProgressBar: false,
+    //       timeOut: 1000,
+    //       title: "This is just a title",
+    //       type: "error"
+    //     };
+    //     this._notification.create('No Internet access','error','',temp);
+    //   }
+    // });
+    
+    // //Login validation code
     let some = this._db.collection('users',
       ref => ref
         .where('name', '==', this.loginCredential.$email)
@@ -45,13 +78,16 @@ export class LoginComponent implements OnInit {
         }))).subscribe(userExists.bind(this));
 
 
-    /**
-    * Submits the login form
-    */
+    // /**
+    // * Submits the login form
+    // */
     function userExists(user: User[]) {
       console.log(user);
       if (user.length !== 0) {
         this._router.navigate(['admin']);
+        localStorage.setItem('user',JSON.stringify(user[0]));
+        console.log(JSON.stringify(user[0]));
+
       } else {
         let temp = {
           position: ["top", "left"],
