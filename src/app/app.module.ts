@@ -13,10 +13,14 @@ import { environment } from '../environments/environment';
 
 import { AppComponent } from './app.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AngularFireStorageModule } from 'angularfire2/storage';
+import { PasswordChangeComponent } from './password-change/password-change.component';
+import { TitleCasePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    PasswordChangeComponent,
   ],
   imports: [
     BrowserModule,
@@ -27,9 +31,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     // route module
     routing,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AngularFireStorageModule
   ],
-  providers: [],
+  providers: [
+    TitleCasePipe
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,12 +1,15 @@
+<simple-notifications></simple-notifications>
 <div class="nav-tabs-navigation">
   <div class="nav-tabs-wrapper">
   <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
-      <li class="active"><a data-toggle="tab" (click)="showPanel('upload')">Upload</a></li>
-      <li ><a data-toggle="tab" (click)="showPanel('search')">Search</a></li>
+      <li [ngClass]="isActive('upload')"><a data-toggle="tab" (click)="showPanel('upload')" >Upload</a></li>
+      <li [ngClass]="isActive('search')"><a data-toggle="tab" (click)="showPanel('search')" *ngIf="user.role == 0">Search</a></li>
+      <li [ngClass]="isActive('update')"><a data-toggle="tab" (click)="showPanel('update')" >Update</a></li>
   </ul>
   </div>
 </div>
 
 <app-file-upload *ngIf="panelTypes.upload"></app-file-upload>
 <app-search *ngIf = "panelTypes.search"></app-search>
+<app-file-update *ngIf = "panelTypes.update"></app-file-update>
 

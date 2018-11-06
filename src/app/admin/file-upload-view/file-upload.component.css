@@ -11,3 +11,12 @@ td {
     float:right;
     margin-right: 2%;
 }
+
+.progress-bar progress-bar-striped bg-success {
+  width: 10%;
+  height: 30px;
+  background-color: #4CAF50;
+  text-align: center; /* To center it horizontally (if you want) */
+  line-height: 30px; /* To center it vertically */
+  color: white; 
+}
